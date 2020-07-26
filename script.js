@@ -201,17 +201,56 @@ function contains(arr, elem, from) {
 
 
 function addDropDownListElements(parent){
-    let selection=document.createElement("select");
-    selection.setAttribute("name", "shapes");
+    // let selection=document.createElement("select");
+    // selection.setAttribute("name", "shapes");
     
-    const enums =['',1,2,3,4,5,6,7];
-    for (var i=0; i<enums.length; ++i) {
-        let option=document.createElement("option");
-        option.innerHTML=enums[i];
-        selection.appendChild(option);
-    }
+    // const enums =['',1,2,3,4,5,6,7];
+    // for (var i=0; i<enums.length; ++i) {
+    //     let option=document.createElement("option");
+    //     option.innerHTML=enums[i];
+    //     selection.appendChild(option);
+    // }
 
-    parent.appendChild(selection);
+    // parent.appendChild(selection);
+
+    let dropDown=document.createElement("div");
+    dropDown.setAttribute("class", "dropdown");
+
+    let textFirst=document.createElement("div");
+    textFirst.setAttribute("class", "textfirst");
+    let imgList=document.createElement("img");
+    imgList.setAttribute("src", "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png");
+    imgList.setAttribute("width", "10");
+    imgList.setAttribute("height", "10");
+    imgList.setAttribute("class", "down");
+    textFirst.appendChild(imgList);
+
+    let ul=document.createElement("ul");
+
+    generateImages(ul);
+
+    dropDown.appendChild(textFirst);
+    dropDown.appendChild(ul);
+    parent.appendChild(dropDown);
+
+
+}
+
+function generateImages(parent) {
+    const images = ["images/shapes/circle.png", "images/shapes/rectangle.png", "images/shapes/romb.png", "images/shapes/triangle1.png",
+    "images/shapes/triangle2.png", "images/shapes/triangle3.png", "images/shapes/triangle4.png"];
+
+    for (let i=0; i<images.length; ++i) {
+        let li=document.createElement("li");
+        li.setAttribute("class", "input-option");
+        li.innerHTML=i+1;
+        let img=document.createElement("img");
+        img.setAttribute("src", images[i]);
+        img.setAttribute("width", "20");
+        img.setAttribute("height", "20");
+        img.setAttribute("alt", "");
+        parent.appendChild(img);
+    }
 
 }
 

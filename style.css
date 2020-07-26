@@ -32,8 +32,6 @@ ul{
 
 }
 
-
-
 li{
     display: flex;
 }
@@ -67,4 +65,35 @@ li * {
 
 .inputRange {
     width: 100%;
+}
+
+.dropdown {
+    border: 1px solid #ddd;
+    position: absolute;
+    border-radius: 3px;
+}
+
+.dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.dropdown ul li,
+.dropdown .textfirst {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 15px;
+}
+
+
+.dropdown ul li {
+    display: none;
+    padding-left: 25px;
+}
+
+
+.input-option img {
+    margin:auto 5px;  
 }
