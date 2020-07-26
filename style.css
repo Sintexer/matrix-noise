@@ -33,7 +33,6 @@ ul{
 
 li{
     display: flex;
-    padding: 20px 0;
 }
 
 li * {
@@ -42,6 +41,8 @@ li * {
 
 .verticalList li {
     display: inline-flex;
+    padding-bottom: 20px;
+    margin-right: 20px;
 }
 
 .caption {
@@ -60,3 +61,10 @@ li * {
 .inputRange {
     width: 100%;
 }
+
+.verticalList {
+    display: block;
+    float: left;
+}
+
+
