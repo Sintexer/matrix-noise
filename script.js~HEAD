@@ -17,7 +17,7 @@ function generateFormList() {
     list.setAttribute("id", "formsList");
     list.setAttribute("class", "verticalList");
     li.appendChild(list);
-    document.getElementById("content").prepend(li);
+    document.querySelector(".verticalList").prepend(li);
     for (let i = 0; i < formsMax; ++i)
         generateForm();
 }
@@ -43,6 +43,7 @@ function generateForm() {
     input1.setAttribute("max", "1");
     input1.setAttribute("step", "any");
     input1.setAttribute("placeholder", "0.0");
+    // input1.setAttribute()
 
     input2.setAttribute("type", "range");
     input2.setAttribute("name", "noiseCoef");
