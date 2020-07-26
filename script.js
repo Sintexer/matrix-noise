@@ -1,11 +1,23 @@
 const formsMax = 7;
 let noiseMax = 0;
 
+class TdContentChanger {
+    static replaceTdContent(td, newValue) {
+        td.innerHTML = newValue;
+    }
+    static concatTdContent(td, newValue){
+        if(td.innerHTML.length>0)
+            td.innerHTML += ', ';
+        td.innerHTML += newValue;
+    }
+}
+
+let changeTdContent = TdContentChanger.replaceTdContent;
+
 document.onload = (() => {
     generateFormList();
     addValueBubbles();
 })();
-
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -43,7 +55,6 @@ function generateForm() {
     input1.setAttribute("max", "1");
     input1.setAttribute("step", "any");
     input1.setAttribute("placeholder", "0.0");
-    // input1.setAttribute()
 
     input2.setAttribute("type", "range");
     input2.setAttribute("name", "noiseCoef");
@@ -157,7 +168,7 @@ function addNoise(steps, noiseVal) {
             }
         }
         if (!contains) {
-            td.innerHTML = +td.innerHTML + (+noiseVal);
+            changeTdContent(td, noiseVal);
             alreadyNoised.push(cell);
         } else
             ++steps;
@@ -188,3 +199,4 @@ function tableInColor() {
 function contains(arr, elem, from) {
     return arr.indexOf(elem, from) != -1;
 }
+

@@ -29,7 +29,10 @@ td {
 
 ul{
     list-style-type: none;
+
 }
+
+
 
 li{
     display: flex;
@@ -39,9 +42,14 @@ li * {
     margin: auto;
 }
 
+.verticalList {
+    display: block;
+    float: left;
+    margin-right: 20px;
+}
+
 .verticalList li {
     padding-bottom: 20px;
-    margin-right: 20px;
 }
 
 .caption {
@@ -60,10 +68,3 @@ li * {
 .inputRange {
     width: 100%;
 }
-
-.verticalList {
-    display: block;
-    float: left;
-}
-
-
