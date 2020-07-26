@@ -13,7 +13,7 @@ function generateFormList() {
     list.setAttribute("id", "formsList");
     list.setAttribute("class", "verticalList");
     li.appendChild(list);
-    document.getElementById("content").prepend(li);
+    document.querySelector(".verticalList").prepend(li);
     for (let i = 0; i < formsMax; ++i)
         genereteForm();
 }

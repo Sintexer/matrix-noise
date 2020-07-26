@@ -9,18 +9,22 @@
 <body>
     <h1>Matrix noise</h1>
     <ul id="content">
-        <li>
-            <form name="inputForm">
-                <fieldset>
-                    <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0"></p>
-                    <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0"></p>
-                </fieldset>
-            </form>
 
-        </li>
-        <li>
-            <button class="click" onclick="processForms()">Make noise</button>
-        </li>
+        <ul class="verticalList">
+            <li>
+             <form name="inputForm">
+                    <fieldset>
+                        <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0"></p>
+                        <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0"></p>
+                    </fieldset>
+                </form>
+
+            </li>
+            <li>
+                <button class="click" onclick="processForms()">Make noise</button>
+            </li>
+        </ul>
+
         <li>
             <table id="matrix">
                 <tbody id="tablebody">
@@ -30,6 +34,7 @@
         </li>
 
     </ul>
+
     <script src="scrypt.js"></script>
 </body>
 </html>
