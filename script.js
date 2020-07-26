@@ -47,14 +47,11 @@ function generateForm() {
     p1.setAttribute("class", "caption");
     p2.innerHTML = "Coefficient (%): ";
     p2.setAttribute("class", "caption");
-    let input1 = document.createElement("input"),
-        input2 = document.createElement("input");
-    input1.setAttribute("type", "number");
-    input1.setAttribute("name", "noiseVal");
-    input1.setAttribute("min", "0");
-    input1.setAttribute("max", "1");
-    input1.setAttribute("step", "any");
-    input1.setAttribute("placeholder", "0.0");
+
+    let input2 = document.createElement("input");
+    
+    addDropDownListElements(p1);
+
 
     input2.setAttribute("type", "range");
     input2.setAttribute("name", "noiseCoef");
@@ -66,7 +63,7 @@ function generateForm() {
 
     let bubble = document.createElement("output");
     bubble.setAttribute("class", "bubble")
-    p1.appendChild(input1);
+   // p1.appendChild(input1);
     p2.appendChild(bubble);
     div.appendChild(p2);
     div.appendChild(input2);
@@ -114,7 +111,7 @@ function processForms() {
         if (noiseForms.length > 0) {
             noiseMax = 0;
             for (let form of noiseForms) {
-                noiseMax += +form.noiseVal.value;
+                noiseMax += +form.shapes.value;
             }
             console.log(noiseMax);
             for (let form of noiseForms) {
@@ -130,7 +127,7 @@ function processForms() {
 function makeNoise(form, rows, cols) {
     try {
         let noiseCoef = form.noiseCoef.value;
-        let noiseVal = form.noiseVal.value * 10;
+        let noiseVal = form.shapes.value;
         let steps = (noiseCoef / 100) * rows * cols;
 
         addNoise(steps, noiseVal);
@@ -187,7 +184,9 @@ function tableInColor() {
                 green = 198,
                 blue = 41;
             let td = matrix[i].children[j];
-            let coef = (td.innerHTML / (10 * noiseMax));
+
+            let coef = td.innerHTML / noiseMax;
+            console.log("Coef:" + coef);
             let r = 255 - (255 - red) * coef,
                 g = 255 - (255 - green) * coef,
                 b = 255 - (255 - blue) * coef;
@@ -198,5 +197,21 @@ function tableInColor() {
 
 function contains(arr, elem, from) {
     return arr.indexOf(elem, from) != -1;
+}
+
+
+function addDropDownListElements(parent){
+    let selection=document.createElement("select");
+    selection.setAttribute("name", "shapes");
+    
+    const enums =['',1,2,3,4,5,6,7];
+    for (var i=0; i<enums.length; ++i) {
+        let option=document.createElement("option");
+        option.innerHTML=enums[i];
+        selection.appendChild(option);
+    }
+
+    parent.appendChild(selection);
+
 }
 
