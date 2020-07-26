@@ -1,7 +1,11 @@
 const formsMax = 7;
 let noiseMax = 0;
 
-document.onload = generateFormList();
+ document.onload = (() => {
+     generateFormList();
+     addValueBubbles();
+ })();
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -15,10 +19,10 @@ function generateFormList() {
     li.appendChild(list);
     document.getElementById("content").prepend(li);
     for (let i = 0; i < formsMax; ++i)
-        genereteForm();
+        generateForm();
 }
 
-function genereteForm() {
+function generateForm() {
     let li = document.createElement("li");
     let form = document.createElement("form");
     form.setAttribute("name", "noiseForm");
@@ -49,11 +53,12 @@ function genereteForm() {
     input2.setAttribute("placeholder", "20");
     input2.setAttribute("class", "inputRange");
 
-    let bubble = document.createElement("output", "bubble");
-
+    let bubble = document.createElement("output");
+    bubble.setAttribute("class", "bubble")
     p1.appendChild(input1);
-    p2.appendChild(input2);
+    p2.appendChild(bubble);
     div.appendChild(p2);
+    div.appendChild(input2);
     fieldSet.appendChild(p1);
     fieldSet.appendChild(div);
     form.appendChild(fieldSet);
@@ -82,7 +87,7 @@ function setBubble(range, bubble) {
     bubble.innerHTML = val;
 
     // Sorta magic numbers based on size of the native UI thumb
-    bubble.style.left = newVal = "%";
+    bubble.style.left = newVal+"%";
 }
 
 function processForms() {

@@ -40,10 +40,6 @@ li * {
     margin: auto;
 }
 
-.forms li {
-
-}
-
 .verticalList li {
     display: inline-flex;
 }
@@ -57,10 +53,10 @@ li * {
     height: 100px;
 }
 
-/*#matrix{*/
-/*    margin: auto;*/
-/*}*/
+.rangeInputWrap * {
+    text-align: left;
+}
 
-/*form {*/
-/*    margin: auto;*/
-/*}*/
+.inputRange {
+    width: 100%;
+}
