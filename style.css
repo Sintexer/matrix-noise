@@ -1,0 +1,66 @@
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+input {
+    width: 50px;
+}
+
+ul {
+    padding: 0;
+}
+
+body {
+    padding: 20px;
+}
+
+table, tr, td{
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    max-width: 10px;
+    max-height: 10px;
+    font-size: 0;
+    box-sizing: content-box;
+}
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    display: flex;
+    padding: 20px 0;
+}
+
+li * {
+    margin: auto;
+}
+
+.forms li {
+
+}
+
+.verticalList li {
+    display: inline-flex;
+}
+
+.caption {
+    text-align: right;
+}
+
+.click {
+    width: 100px;
+    height: 100px;
+}
+
+/*#matrix{*/
+/*    margin: auto;*/
+/*}*/
+
+/*form {*/
+/*    margin: auto;*/
+/*}*/

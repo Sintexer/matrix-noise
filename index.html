@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrix noise</title>
+    <link type="text/css" href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Matrix noise</h1>
+    <ul id="content">
+        <li>
+            <form name="inputForm">
+                <fieldset>
+                    <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0"></p>
+                    <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0"></p>
+                </fieldset>
+            </form>
+
+        </li>
+        <li>
+            <button class="click" onclick="processForms()">Make noise</button>
+        </li>
+        <li>
+            <table id="matrix">
+                <tbody id="tablebody">
+
+                </tbody>
+            </table>
+        </li>
+
+    </ul>
+    <script src="scrypt.js"></script>
+</body>
+</html>
