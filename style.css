@@ -40,7 +40,6 @@ li * {
 }
 
 .verticalList li {
-    /*display: inline-flex;*/
     padding-bottom: 20px;
     margin-right: 20px;
 }
