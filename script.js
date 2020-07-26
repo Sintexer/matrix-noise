@@ -1,10 +1,10 @@
 const formsMax = 7;
 let noiseMax = 0;
 
- document.onload = (() => {
-     generateFormList();
-     addValueBubbles();
- })();
+document.onload = (() => {
+    generateFormList();
+    addValueBubbles();
+})();
 
 
 function getRandomInt(max) {
@@ -17,7 +17,7 @@ function generateFormList() {
     list.setAttribute("id", "formsList");
     list.setAttribute("class", "verticalList");
     li.appendChild(list);
-    document.getElementById("content").prepend(li);
+    document.querySelector(".verticalList").prepend(li);
     for (let i = 0; i < formsMax; ++i)
         generateForm();
 }
@@ -43,6 +43,7 @@ function generateForm() {
     input1.setAttribute("max", "1");
     input1.setAttribute("step", "any");
     input1.setAttribute("placeholder", "0.0");
+    // input1.setAttribute()
 
     input2.setAttribute("type", "range");
     input2.setAttribute("name", "noiseCoef");
@@ -166,7 +167,7 @@ function addNoise(steps, noiseVal) {
 function tableInColor() {
     let table = document.getElementById("matrix");
     let rowMax = table.children[0].children.length;
-        let colMax = table.children[0].children[0].children.length;
+    let colMax = table.children[0].children[0].children.length;
     let matrix = table.children[0].children;
 
     for (let i = 0; i < rowMax; ++i) {
