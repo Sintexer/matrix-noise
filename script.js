@@ -1,11 +1,23 @@
 const formsMax = 7;
 let noiseMax = 0;
 
+class TdContentChanger {
+    static replaceTdContent(td, newValue) {
+        td.innerHTML = newValue;
+    }
+    static concatTdContent(td, newValue){
+        if(td.innerHTML.length>0)
+            td.innerHTML += ', ';
+        td.innerHTML += newValue;
+    }
+}
+
+let changeTdContent = TdContentChanger.replaceTdContent;
+
 document.onload = (() => {
     generateFormList();
     addValueBubbles();
 })();
-
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -35,9 +47,11 @@ function generateForm() {
     p1.setAttribute("class", "caption");
     p2.innerHTML = "Coefficient (%): ";
     p2.setAttribute("class", "caption");
+
     let input2 = document.createElement("input");
     
     addDropDownListElements(p1);
+
 
     input2.setAttribute("type", "range");
     input2.setAttribute("name", "noiseCoef");
@@ -151,7 +165,7 @@ function addNoise(steps, noiseVal) {
             }
         }
         if (!contains) {
-            td.innerHTML = +td.innerHTML + (+noiseVal);
+            changeTdContent(td, noiseVal);
             alreadyNoised.push(cell);
         } else
             ++steps;
@@ -185,6 +199,7 @@ function contains(arr, elem, from) {
     return arr.indexOf(elem, from) != -1;
 }
 
+
 function addDropDownListElements(parent){
     let selection=document.createElement("select");
     selection.setAttribute("name", "shapes");
@@ -199,3 +214,4 @@ function addDropDownListElements(parent){
     parent.appendChild(selection);
 
 }
+
