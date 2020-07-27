@@ -1,5 +1,6 @@
 const formsMax = 7;
 let noiseMax = 0;
+let formId=0;
 
 class TdContentChanger {
     static replaceTdContent(td, newValue) {
@@ -17,6 +18,7 @@ let changeTdContent = TdContentChanger.replaceTdContent;
 document.onload = (() => {
     generateFormList();
     addValueBubbles();
+  //  dropList();
 })();
 
 function getRandomInt(max) {
@@ -30,11 +32,12 @@ function generateFormList() {
     list.setAttribute("class", "verticalList");
     li.appendChild(list);
     document.querySelector(".verticalList").prepend(li);
-    for (let i = 0; i < formsMax; ++i)
-        generateForm();
+    for (let i = 0; i < formsMax; ++i) {
+        generateForm(i+1);
+    }
 }
 
-function generateForm() {
+function generateForm(id) {
     let li = document.createElement("li");
     let form = document.createElement("form");
     form.setAttribute("name", "noiseForm");
@@ -50,7 +53,7 @@ function generateForm() {
 
     let input2 = document.createElement("input");
     
-    addDropDownListElements(p1);
+    addDropDownListElements(p1, id);
 
 
     input2.setAttribute("type", "range");
@@ -200,57 +203,17 @@ function contains(arr, elem, from) {
 }
 
 
-function addDropDownListElements(parent){
-    // let selection=document.createElement("select");
-    // selection.setAttribute("name", "shapes");
+function addDropDownListElements(parent, id){
+    let selection=document.createElement("select");
+    selection.setAttribute("name", "shapes");
     
-    // const enums =['',1,2,3,4,5,6,7];
-    // for (var i=0; i<enums.length; ++i) {
-    //     let option=document.createElement("option");
-    //     option.innerHTML=enums[i];
-    //     selection.appendChild(option);
-    // }
-
-    // parent.appendChild(selection);
-
-    let dropDown=document.createElement("div");
-    dropDown.setAttribute("class", "dropdown");
-
-    let textFirst=document.createElement("div");
-    textFirst.setAttribute("class", "textfirst");
-    let imgList=document.createElement("img");
-    imgList.setAttribute("src", "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-arrow-down-b-128.png");
-    imgList.setAttribute("width", "10");
-    imgList.setAttribute("height", "10");
-    imgList.setAttribute("class", "down");
-    textFirst.appendChild(imgList);
-
-    let ul=document.createElement("ul");
-
-    generateImages(ul);
-
-    dropDown.appendChild(textFirst);
-    dropDown.appendChild(ul);
-    parent.appendChild(dropDown);
-
-
-}
-
-function generateImages(parent) {
-    const images = ["images/shapes/circle.png", "images/shapes/rectangle.png", "images/shapes/romb.png", "images/shapes/triangle1.png",
-    "images/shapes/triangle2.png", "images/shapes/triangle3.png", "images/shapes/triangle4.png"];
-
-    for (let i=0; i<images.length; ++i) {
-        let li=document.createElement("li");
-        li.setAttribute("class", "input-option");
-        li.innerHTML=i+1;
-        let img=document.createElement("img");
-        img.setAttribute("src", images[i]);
-        img.setAttribute("width", "20");
-        img.setAttribute("height", "20");
-        img.setAttribute("alt", "");
-        parent.appendChild(img);
+    const enums =['',1,2,3,4,5,6,7];
+    for (var i=0; i<enums.length; ++i) {
+        let option=document.createElement("option");
+        option.innerHTML=enums[i];
+        selection.appendChild(option);
     }
 
-}
+    parent.appendChild(selection);
 
+}
