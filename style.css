@@ -2,8 +2,38 @@
     font-family: 'Nunito Sans', sans-serif;
 }
 
+body {
+    margin: 0;
+}
+
+form {
+    width: 100%;
+}
+
+fieldset {
+    border: 2px solid #70cc79;
+}
+
 input {
     width: 50px;
+}
+
+button {
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #70cc79;
+}
+
+button:hover {
+    background-color: #70cc79;
+    color: white;
 }
 
 p {
@@ -13,6 +43,15 @@ p {
 ul {
     padding: 0;
     margin: 0;
+    list-style-type: none;
+}
+
+li{
+    display: flex;
+}
+
+li * {
+    margin: auto;
 }
 
 table, tr, td{
@@ -21,9 +60,6 @@ table, tr, td{
 }
 
 td {
-    padding: 20px;
-    max-width: 40px;
-    max-height: 40px;
     font-size: 0;
     box-sizing: content-box;
     position: relative;
@@ -31,33 +67,15 @@ td {
 }
 
 td img {
-    /*position: relative;*/
-    position: absolute;
+    position: absolute;             /*For images overlay in td's*/
     top: 0;
     left: 0;
-}
-
-ul{
-    list-style-type: none;
-    
-}
-
-li{
-    display: flex;
-
-}
-
-li * {
-    margin: auto;
-}
-
-body {
-    margin: 0;
 }
 
 .verticalList {
     display: block;
     float: left;
+    width: 100%;
 }
 
 .verticalList li {
@@ -82,31 +100,6 @@ body {
     width: 100%;
 }
 
-button {
- border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  /*margin: 4px 2px;*/
-  transition-duration: 0.4s;
-  cursor: pointer;
-  background-color: white; 
-  color: black; 
-  border: 2px solid #70cc79;
-}
-
-button:hover {
-  background-color: #70cc79; /* Green */
-  color: white;
-}
-
-fieldset {
-    border: 2px solid #70cc79;
-}
-
 .input-option img {
     margin:auto 5px;  
 }
@@ -117,19 +110,21 @@ fieldset {
 
 .settingsTitle {
     text-align: center;
+    display: block;
 }
 
 .settingsTitle h1 {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 #matrix {
-    //margin-top: 80px;
+    margin: 20px;
 }
 
 #settings {
     padding: 4px;
     height: 100%;
+    width: 250px;
 }
 
 .items {
@@ -137,15 +132,22 @@ fieldset {
 }
 
 .items > li {
-    display: inline-block;
     height: 100vh;
     float: left;
-    overflow-y: scroll;
+    overflow: auto;
 }
 
 .content-space {
-    display: contents;
-    overflow-x: scroll;
-    margin: 20px;
+    position: absolute;
+    margin-left: 250px;
+    display: inline-block;
 }
 
+.radioForm {
+    display: block;
+}
+
+.settings-space {
+    position: absolute;
+    display: flex;
+}

@@ -3,11 +3,11 @@ let noiseMax = 0;
 let changeTdContent,
     paintTd,
     findNoiseMax;
+
 const imagesPath = "images/shapes/";
 const imagesRelative = ["rectangle.png", "circle.png", "romb.png", "triangle1.png",
     "triangle2.png", "triangle3.png", "triangle4.png"];
 let images = imagesRelative.map(pathRel => imagesPath+pathRel);
-
 
 class TdContentChanger {
     static replaceTdContent(td, newValue) {
@@ -52,7 +52,7 @@ class TdContentPaint {
                 let r = 255 - (255 - red) * coef,
                     g = 255 - (255 - green) * coef,
                     b = 255 - (255 - blue) * coef;
-                td.style = "background-color: rgb(" + r + ", " + g + ", " + b + ");"
+                td.style.backgroundColor = "rgb(" + r + ", " + g + ", " + b + ")"
             }
         }
     }
@@ -81,12 +81,6 @@ class TdContentPaint {
     }
 }
 
-document.onload = (() => {
-    switchTableType();
-    generateFormList();
-    addValueBubbles();
-})();
-
 function switchTableType() {
     findNoiseMax = document.formFillType.tableFillType.value === "concat" ?
         TdContentChanger.noiseValSum :
@@ -103,7 +97,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function generateFormList() {
+function generateFormsList() {
     let li = document.createElement("li");
     let list = document.createElement("ul");
     list.setAttribute("id", "formsList");
@@ -125,54 +119,15 @@ function generateForm() {
     div.setAttribute("class", "rangeInputWrap");
     p1.innerHTML = "Noise value: ";
     p2.innerHTML = "Coefficient (%): ";
-
-    let input2 = document.createElement("input");
-
     addDropDownListElements(p1);
-
-    input2.setAttribute("type", "range");
-    input2.setAttribute("name", "noiseCoef");
-    input2.setAttribute("min", "0");
-    input2.setAttribute("max", "100");
-    input2.setAttribute("step", "1");
-    input2.setAttribute("placeholder", "20");
-    input2.setAttribute("class", "inputRange");
-
-    let bubble = document.createElement("output");
-    bubble.setAttribute("class", "bubble")
-    // p1.appendChild(input1);
-    p2.appendChild(bubble);
+    addRangeBubble(p2);
     div.appendChild(p2);
-    div.appendChild(input2);
+    addRangeInput(div);
     fieldSet.appendChild(p1);
     fieldSet.appendChild(div);
     form.appendChild(fieldSet);
     li.appendChild(form);
     document.getElementById("formsList").appendChild(li);
-}
-
-function addValueBubbles() {
-    const wraps = document.querySelectorAll(".rangeInputWrap");
-    wraps.forEach(wrap => {
-        const bubble = wrap.querySelector(".bubble");
-        const range = wrap.querySelector(".inputRange");
-
-        range.addEventListener("input", () => {
-            setBubble(range, bubble);
-        });
-        setBubble(range, bubble);
-    })
-}
-
-function setBubble(range, bubble) {
-    const val = range.value;
-    const min = range.min ? range.min : 0;
-    const max = range.max ? range.max : 100;
-    const newVal = Number(((val - min) * 100) / (max - min));
-    bubble.innerHTML = val;
-
-    // Sorta magic numbers based on size of the native UI thumb
-    bubble.style.left = newVal+"%";
 }
 
 function processForms() {
@@ -214,16 +169,25 @@ function makeNoise(form, rows, cols) {
 
 function addTbody(table, rows, cols) {
     let tbody = document.createElement("tbody");
+    let newSize = calculateCellSize(rows, cols);
     for (let i = 0; i < rows; ++i) {
         let newRow = document.createElement("tr");
         for (let j = 0; j < cols; ++j) {
             let newTd = newRow.insertCell(j);
             newTd.innerHTML = "0";
-            newTd.setAttribute("style", "width: " + 100/cols + "px; height: " + 100/rows + "px;");
+            newTd.setAttribute("style", "padding: " + newSize + "px;");
         }
         tbody.appendChild(newRow);
     }
     table.appendChild(tbody);
+}
+
+function calculateCellSize(rows, cols) {
+    let newSize;
+    console.log(rows, cols);
+    newSize = (document.getElementsByClassName("content-space")[0].clientHeight) / rows / 2.3;
+    console.log(newSize);
+    return newSize;
 }
 
 function addNoise(steps, noiseVal) {
@@ -262,23 +226,63 @@ function contains(arr, elem, from) {
     return arr.indexOf(elem, from) != -1;
 }
 
+function addRangeBubble(parent) {
+    let bubble = document.createElement("output");
+    bubble.setAttribute("class", "bubble")
+    parent.appendChild(bubble);
+}
+
+function addValueBubbles() {
+    const wraps = document.querySelectorAll(".rangeInputWrap");
+    wraps.forEach(wrap => {
+        const bubble = wrap.querySelector(".bubble");
+        const range = wrap.querySelector(".inputRange");
+        range.addEventListener("input", () => {
+            setBubble(range, bubble);
+        });
+        setBubble(range, bubble);
+    })
+}
+
+function setBubble(range, bubble) {
+    const val = range.value;
+    const min = range.min ? range.min : 0;
+    const max = range.max ? range.max : 100;
+    const newVal = Number(((val - min) * 100) / (max - min));
+    bubble.innerHTML = val;
+    bubble.style.left = newVal+"%";
+}
+
+function addRangeInput(parent){
+    let input = document.createElement("input");
+
+    input.setAttribute("type", "range");
+    input.setAttribute("name", "noiseCoef");
+    input.setAttribute("min", "0");
+    input.setAttribute("max", "100");
+    input.setAttribute("step", "1");
+    input.setAttribute("placeholder", "20");
+    input.setAttribute("class", "inputRange");
+    parent.appendChild(input);
+}
 
 function addDropDownListElements(parent){
     let selection=document.createElement("select");
     selection.setAttribute("name", "shapes");
 
-
-
-    const enums =['',1,2,3,4,5,6,7];
-    for (var i=0; i<enums.length; ++i) {
+    const values =['',1,2,3,4,5,6,7];
+    for (let i=0; i<values.length; ++i) {
         let option=document.createElement("option");
         let div = document.createElement("div");
         div.setAttribute("class", "optionDiv");
-        option.innerHTML=enums[i];
+        option.innerHTML=values[i];
         selection.appendChild(option);
     }
-
-
     parent.appendChild(selection);
+}
 
+function onLoad() {
+    switchTableType();
+    generateFormsList();
+    addValueBubbles();
 }

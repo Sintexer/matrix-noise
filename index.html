@@ -5,14 +5,11 @@
     <title>Matrix noise</title>
     <link type="text/css" href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    
+    <script src="script.js"></script>
 </head>
 <body>
-
     <ul class="items">
-        <li>
+        <li class="settings-space">
             <div id="settings">
                 <span class="settingsTitle">
                     <h1>Matrix noise</h1>
@@ -23,8 +20,8 @@
                     <li>
                         <form name="formMatrixSize">
                             <fieldset>
-                                <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0"></p>
-                                <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0"></p>
+                                <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0" value="20"></p>
+                                <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0" value="20"></p>
                             </fieldset>
                         </form>
                     </li>
@@ -32,10 +29,14 @@
                             <form name="formFillType">
                                 <fieldset>
                                     <legend>Fill type</legend>
-                                    <input type="radio" name="tableFillType" value="overwrite">
-                                    <label>Overwrite</label>
-                                    <input type="radio" name="tableFillType" value="concat">
-                                    <label>Concat</label>
+                                    <div class="radioForm">
+                                        <input type="radio" name="tableFillType" value="overwrite">
+                                        <label>Overwrite</label>
+                                    </div>
+                                    <div class="radioForm">
+                                        <input type="radio" name="tableFillType" value="concat">
+                                        <label>Concat</label>
+                                    </div>
                                 </fieldset>
                             </form>
                     </li>
@@ -43,10 +44,14 @@
                             <form name="formPaintType">
                                 <fieldset>
                                     <legend>Fill with</legend>
-                                    <input type="radio" name="tablePaintType" value="images">
-                                    <label>Images</label>
-                                    <input type="radio" name="tablePaintType" value="colors">
-                                    <label>Colors</label>
+                                    <div class="radioForm">
+                                        <input type="radio" name="tablePaintType" value="images">
+                                        <label>Images</label>
+                                    </div>
+                                    <div class="radioForm">
+                                        <input type="radio" name="tablePaintType" value="colors">
+                                        <label>Colors</label>
+                                    </div>
                                 </fieldset>
                             </form>
 
@@ -57,7 +62,7 @@
                 </ul>
             </div>
         </li>
-        <li class="content-space" style="display: contents">
+        <li class="content-space">
             <div class="content">
                 <table id="matrix">
                     <tbody id="tablebody">
@@ -67,10 +72,8 @@
             </div>
         </li>
     </ul>
-
-    <script src="script.js"></script>
-
-  
-
+    <script>
+        document.onload = onLoad;
+    </script>
 </body>
 </html>
