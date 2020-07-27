@@ -1,103 +1,25 @@
 const formsMax = 7;
 let noiseMax = 0;
-let changeTdContent,
-    paintTd,
-    findNoiseMax;
-const imagesPath = "images/shapes/";
-const imagesRelative = ["rectangle.png", "circle.png", "romb.png", "triangle1.png",
-    "triangle2.png", "triangle3.png", "triangle4.png"];
-let images = imagesRelative.map(pathRel => imagesPath+pathRel);
-
+let formId=0;
 
 class TdContentChanger {
     static replaceTdContent(td, newValue) {
         td.innerHTML = newValue;
     }
     static concatTdContent(td, newValue){
-        if(td.innerHTML === '0')
-            td.innerHTML = newValue;
-        else {
-            if (td.innerHTML.length > 0)
-                td.innerHTML += ', ';
-            td.innerHTML += newValue;
-        }
-    }
-    static noiseValBiggest(noiseForms){
-        noiseMax = 0;
-        for (let form of noiseForms) {
-            if(+form.shapes.value > noiseMax)
-                noiseMax = +form.shapes.value;
-        }
-    }
-
-    static noiseValSum(noiseForms){
-        noiseMax = 0;
-        for (let form of noiseForms) {
-            if(+form.shapes.value > 0)
-                noiseMax += +form.shapes.value;
-        }
+        if(td.innerHTML.length>0)
+            td.innerHTML += ', ';
+        td.innerHTML += newValue;
     }
 }
 
-class TdContentPaint {
-    static fillTableColors(table, rowMax, colMax, matrix) {
-        for (let i = 0; i < rowMax; ++i) {
-            for (let j = 0; j < colMax; ++j) {
-                let red = 13,
-                    green = 198,
-                    blue = 41;
-                let td = matrix[i].children[j];
-                let values = td.innerHTML.split(', ').map(val => +val);
-                let coef =  values.reduce((acc= 0, curr) => acc + curr)/ noiseMax;
-                let r = 255 - (255 - red) * coef,
-                    g = 255 - (255 - green) * coef,
-                    b = 255 - (255 - blue) * coef;
-                td.style = "background-color: rgb(" + r + ", " + g + ", " + b + ");"
-            }
-        }
-    }
-
-    static fillTableImages(table, rowMax, colMax, matrix) {
-        for (let i = 0; i < rowMax; ++i) {
-            for (let j = 0; j < colMax; ++j) {
-                let td = matrix[i].children[j];
-                let indexes = td.innerHTML.split(", ");
-                while(td.hasChildNodes())
-                    td.removeChild(td.firstChild);
-
-                if(indexes[0] !== '0') {
-                    let step = 0;
-                    for (let index of indexes){
-                        let img = document.createElement("img");
-                        img.setAttribute("src", images[+index-1]);
-                        img.setAttribute("width", "100%");
-                        img.setAttribute("height", "100%");
-                        td.appendChild(img);
-                        step+=10;
-                    }
-                }
-            }
-        }
-    }
-}
+let changeTdContent = TdContentChanger.replaceTdContent;
 
 document.onload = (() => {
-    switchTableType();
     generateFormList();
     addValueBubbles();
+  //  dropList();
 })();
-
-function switchTableType() {
-    findNoiseMax = document.formFillType.tableFillType.value === "concat" ?
-        TdContentChanger.noiseValSum :
-        TdContentChanger.noiseValBiggest;
-    changeTdContent = document.formFillType.tableFillType.value === "concat" ?
-        TdContentChanger.concatTdContent :
-        TdContentChanger.replaceTdContent;
-    paintTd = document.formPaintType.tablePaintType.value === "colors" ?
-        TdContentPaint.fillTableColors :
-        TdContentPaint.fillTableImages;
-}
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -110,11 +32,12 @@ function generateFormList() {
     list.setAttribute("class", "verticalList");
     li.appendChild(list);
     document.querySelector(".verticalList").prepend(li);
-    for (let i = 0; i < formsMax; ++i)
-        generateForm();
+    for (let i = 0; i < formsMax; ++i) {
+        generateForm(i+1);
+    }
 }
 
-function generateForm() {
+function generateForm(id) {
     let li = document.createElement("li");
     let form = document.createElement("form");
     form.setAttribute("name", "noiseForm");
@@ -124,17 +47,20 @@ function generateForm() {
     let div = document.createElement("div");
     div.setAttribute("class", "rangeInputWrap");
     p1.innerHTML = "Noise value: ";
+    p1.setAttribute("class", "caption");
     p2.innerHTML = "Coefficient (%): ";
+    p2.setAttribute("class", "caption");
 
     let input2 = document.createElement("input");
     
-    addDropDownListElements(p1);
+    addDropDownListElements(p1, id);
+
 
     input2.setAttribute("type", "range");
     input2.setAttribute("name", "noiseCoef");
     input2.setAttribute("min", "0");
     input2.setAttribute("max", "100");
-    input2.setAttribute("step", "1");
+    input2.setAttribute("step", "5");
     input2.setAttribute("placeholder", "20");
     input2.setAttribute("class", "inputRange");
 
@@ -176,27 +102,28 @@ function setBubble(range, bubble) {
 }
 
 function processForms() {
-    switchTableType();
     try {
         let table = document.getElementById("matrix");
-        let rows = document.formMatrixSize.jis.value;
-        let cols = document.formMatrixSize.cols.value;
+        let rows = document.inputForm.jis.value;
+        let cols = document.inputForm.cols.value;
         while (table.hasChildNodes()) {
             table.removeChild(table.firstChild);
         }
         addTbody(table, rows, cols);
         let noiseForms = document.getElementsByName("noiseForm");
         if (noiseForms.length > 0) {
-            findNoiseMax(noiseForms);
+            noiseMax = 0;
             for (let form of noiseForms) {
-                if(+form.shapes.value > 0)
-                    makeNoise(form, rows, cols);
+                noiseMax += +form.shapes.value;
+            }
+            console.log(noiseMax);
+            for (let form of noiseForms) {
+                makeNoise(form, rows, cols);
             }
         }
-        fillTable();
+        tableInColor();
     } catch (exceprion) {
-        console.log("exc");
-        console.log(exceprion.message)
+
     }
 }
 
@@ -205,10 +132,10 @@ function makeNoise(form, rows, cols) {
         let noiseCoef = form.noiseCoef.value;
         let noiseVal = form.shapes.value;
         let steps = (noiseCoef / 100) * rows * cols;
-        console.log(steps);
+
         addNoise(steps, noiseVal);
     } catch (e) {
-        log(e.message);
+
     }
 }
 
@@ -219,7 +146,6 @@ function addTbody(table, rows, cols) {
         for (let j = 0; j < cols; ++j) {
             let newTd = newRow.insertCell(j);
             newTd.innerHTML = "0";
-            newTd.setAttribute("style", "width: " + 100/cols + "px; height: " + 100/rows + "px;");
         }
         tbody.appendChild(newRow);
     }
@@ -230,7 +156,6 @@ function addNoise(steps, noiseVal) {
     let table = document.getElementById("matrix");
     let alreadyNoised = [];
     while (steps-- > 0) {
-        console.log("step");
         let row = getRandomInt(table.children[0].children.length);
         let col = getRandomInt(table.children[0].children[0].children.length);
         let td = table.children[0].children[row].children[col];
@@ -250,12 +175,27 @@ function addNoise(steps, noiseVal) {
     }
 }
 
-function fillTable() {
+function tableInColor() {
     let table = document.getElementById("matrix");
     let rowMax = table.children[0].children.length;
     let colMax = table.children[0].children[0].children.length;
     let matrix = table.children[0].children;
-    paintTd(table, rowMax, colMax, matrix);
+
+    for (let i = 0; i < rowMax; ++i) {
+        for (let j = 0; j < colMax; ++j) {
+            let red = 13,
+                green = 198,
+                blue = 41;
+            let td = matrix[i].children[j];
+
+            let coef = td.innerHTML / noiseMax;
+            console.log("Coef:" + coef);
+            let r = 255 - (255 - red) * coef,
+                g = 255 - (255 - green) * coef,
+                b = 255 - (255 - blue) * coef;
+            td.style = "background-color: rgb(" + r + ", " + g + ", " + b + ");"
+        }
+    }
 }
 
 function contains(arr, elem, from) {
@@ -263,21 +203,16 @@ function contains(arr, elem, from) {
 }
 
 
-function addDropDownListElements(parent){
+function addDropDownListElements(parent, id){
     let selection=document.createElement("select");
     selection.setAttribute("name", "shapes");
-
-
     
     const enums =['',1,2,3,4,5,6,7];
     for (var i=0; i<enums.length; ++i) {
         let option=document.createElement("option");
-        let div = document.createElement("div");
-        div.setAttribute("class", "optionDiv");
         option.innerHTML=enums[i];
         selection.appendChild(option);
     }
-
 
     parent.appendChild(selection);
 
