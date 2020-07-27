@@ -10,33 +10,62 @@
     
 </head>
 <body>
-    <h1>Matrix noise</h1>
-    <h2>Welcome</h2>
-    <ul id="content">
 
-        <ul class="verticalList">
-            <li>
-             <form name="inputForm">
-                    <fieldset>
-                        <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0"></p>
-                        <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0"></p>
-                    </fieldset>
-                </form>
-
-            </li>
-            <li>
-                <button class="click" onclick="processForms()">Make noise</button>
-            </li>
-        </ul>
-
+    <ul class="items">
         <li>
-            <table id="matrix">
-                <tbody id="tablebody">
+            <div id="settings">
+                <span class="settingsTitle">
+                    <h1>Matrix noise</h1>
+                    <hr>
+                    <h2>Settings:</h2>
+                </span>
+                <ul class="verticalList">
+                    <li>
+                        <form name="formMatrixSize">
+                            <fieldset>
+                                <p class="caption">Rows: <input placeholder="rows" type="number" name="jis" min="0"></p>
+                                <p class="caption">Columns: <input placeholder="cols" type="number" name="cols" min="0"></p>
+                            </fieldset>
+                        </form>
+                    </li>
+                    <li>
+                            <form name="formFillType">
+                                <fieldset>
+                                    <legend>Fill type</legend>
+                                    <input type="radio" name="tableFillType" value="overwrite">
+                                    <label>Overwrite</label>
+                                    <input type="radio" name="tableFillType" value="concat">
+                                    <label>Concat</label>
+                                </fieldset>
+                            </form>
+                    </li>
+                    <li>
+                            <form name="formPaintType">
+                                <fieldset>
+                                    <legend>Fill with</legend>
+                                    <input type="radio" name="tablePaintType" value="images">
+                                    <label>Images</label>
+                                    <input type="radio" name="tablePaintType" value="colors">
+                                    <label>Colors</label>
+                                </fieldset>
+                            </form>
 
-                </tbody>
-            </table>
+                    </li>
+                    <li>
+                        <button class="click" onclick="processForms()">Make noise</button>
+                    </li>
+                </ul>
+            </div>
         </li>
+        <li class="content-space" style="display: contents">
+            <div class="content">
+                <table id="matrix">
+                    <tbody id="tablebody">
 
+                    </tbody>
+                </table>
+            </div>
+        </li>
     </ul>
 
     <script src="script.js"></script>
