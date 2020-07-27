@@ -6,12 +6,13 @@ input {
     width: 50px;
 }
 
-ul {
-    padding: 0;
+p {
+    padding: 10px;
 }
 
-body {
-    padding: 20px;
+ul {
+    padding: 0;
+    margin: 0;
 }
 
 table, tr, td{
@@ -20,11 +21,20 @@ table, tr, td{
 }
 
 td {
-    padding: 10px;
-    max-width: 10px;
-    max-height: 10px;
+    padding: 20px;
+    max-width: 40px;
+    max-height: 40px;
     font-size: 0;
     box-sizing: content-box;
+    position: relative;
+    z-index: -1;
+}
+
+td img {
+    /*position: relative;*/
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 ul{
@@ -41,14 +51,18 @@ li * {
     margin: auto;
 }
 
+body {
+    margin: 0;
+}
+
 .verticalList {
     display: block;
     float: left;
-    margin-right: 20px;
 }
 
 .verticalList li {
     padding-bottom: 20px;
+    width: 100%;
 }
 
 .caption {
@@ -93,7 +107,45 @@ fieldset {
     border: 2px solid #70cc79;
 }
 
+.input-option img {
+    margin:auto 5px;  
+}
 
+.content {
+    vertical-align: middle;
+}
 
+.settingsTitle {
+    text-align: center;
+}
 
+.settingsTitle h1 {
+    padding-bottom: 20px;
+}
+
+#matrix {
+    //margin-top: 80px;
+}
+
+#settings {
+    padding: 4px;
+    height: 100%;
+}
+
+.items {
+    height: 100vh;
+}
+
+.items > li {
+    display: inline-block;
+    height: 100vh;
+    float: left;
+    overflow-y: scroll;
+}
+
+.content-space {
+    display: contents;
+    overflow-x: scroll;
+    margin: 20px;
+}
 
